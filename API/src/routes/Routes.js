@@ -24,10 +24,9 @@ router.post('/getRoles',
             if (err) {
                 res.status(500).json({success: false, message: JSON.stringify(err)});
             } else {
-                console.log('Successfully Created Account!');
-                res.status(200).json({success: true, roles: dbResponse});
+                console.log('Got Roles from db!');
+                res.send(dbResponse);
             }
-            res.send(res)
         });
     });
 
