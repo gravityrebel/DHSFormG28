@@ -20,15 +20,17 @@ router.get('/getRoles',
                 return res.status(500).json({success: false, data: err});
             }
 
-            const dbResponse = client.query('SELECT * from g28formRoles');
-            done()
-            if (err) {
-                res.status(500).json({success: false, message: JSON.stringify(err)});
-            } else {
-                console.log('Got Roles from db!');
-                console.log(JSON.stringify(dbResponse));
-                res.send(JSON.stringify(dbResponse));
-            }
+            const dbResponse = client.query('SELECT * from g28formRoles', function(err, dbResponse) {
+                if (err) {
+                    res.status(500).json({success: false, message: JSON.stringify(err)});
+                } else {
+                    console.log('Got Roles from db!');
+                    console.log(dbResponse);
+                    console.log(JSON.stringify(dbResponse));
+                    res.send(JSON.stringify(dbResponse));
+                }
+            });
+
         });
     });
 

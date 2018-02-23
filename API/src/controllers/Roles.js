@@ -12,15 +12,15 @@ function getRoles(req, res, next) {
             return res.status(500).json({success: false, data: err});
         }
 
-        const {dbResponse} = client.query('SELECT * from g28formRoles')
-        dbResponse
-        done()
-        if (err) {
-            res.status(500).json({success: false, message: JSON.stringify(err)});
-        } else {
-            console.log('Successfully Created Account!');
-            res.status(200).json({ success: true, roles: dbResponse} );
-        }
+        const {dbResponse} = client.query('SELECT * from g28formRoles', function (err, dbResponse) {
+            if (err) {
+                res.status(500).json({success: false, message: JSON.stringify(err)});
+            } else {
+                console.log('Successfully Created Account!');
+                res.status(200).json({success: true, roles: dbResponse});
+            }
+        });
+        
         res.send(res)
     });
 }
