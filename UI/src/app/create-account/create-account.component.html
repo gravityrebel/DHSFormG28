@@ -7,7 +7,7 @@
   
 <div class="container create-container">
 
-  <form>
+  <form #newAccountForm="ngForm">
     <div class="form-group">
       <label for="username">User ID</label>
       <input type="text" class="form-control" id="id" name="id" required 
@@ -88,9 +88,20 @@
         Passwords do not match
       </div>
     </div>
-
+    
+	<div class="form-group">
+		<label for="role">Role</label>
+		<div>
+		<select name="role" id="role" [(ngModel)]="user_role" required>
+			<option *ngFor="let role of roles" >
+				{{role.name}}
+			</option>
+		</select>
+		</div>
+	</div>
     <div class="buttonSpacer" style="text-align:center">
-      <button type="button" class="btn btn-primary create-button" (click)="createNewAccount()" title="Create New Account Button">
+      <button type="button" class="btn btn-primary create-button" (click)="createNewAccount()" title="Create New Account Button"
+      	[disabled]="newAccountForm.form.invalid">
         CREATE ACCOUNT
       </button>
     </div>
